@@ -80,6 +80,15 @@ module.exports = function(config, env) {
 		module: {
 			loaders: [
 				{
+					test: /\.jsx?$/,
+					include: sourceDir,
+					loader: 'babel',
+					query: {
+						babelrc: false,
+						presets: ['es2015', 'react', 'stage-0'],
+					},
+				},
+				{
 					test: new RegExp(`node_modules[/\\\\](${jsonModules.join('|')})[/\\\\].*\\.json$`),
 					include: /node_modules/,
 					loader: 'json',
@@ -135,7 +144,7 @@ module.exports = function(config, env) {
 		webpackConfig = merge(webpackConfig, {
 			styleguidist: config,
 			resolve: {
-				extensions: ['', '.js', '.jsx', '.json'],
+				extensions: ['.js', '.jsx', '.json', ''],
 				root: sourceDir,
 				moduleDirectories: [
 					nodeModulesDir,
@@ -171,19 +180,6 @@ module.exports = function(config, env) {
 					mangle: false,
 				}),
 			],
-			module: {
-				loaders: [
-					{
-						test: /\.jsx?$/,
-						include: sourceDir,
-						loader: 'babel',
-						query: {
-							babelrc: false,
-							presets: ['es2015', 'react', 'stage-0'],
-						},
-					},
-				],
-			},
 		});
 	}
 	else {
@@ -198,24 +194,10 @@ module.exports = function(config, env) {
 				colors: true,
 				reasons: true,
 			},
-
 			plugins: [
 				new webpack.HotModuleReplacementPlugin(),
 				new webpack.NoErrorsPlugin(),
 			],
-			module: {
-				loaders: [
-					{
-						test: /\.jsx?$/,
-						include: sourceDir,
-						loader: 'babel',
-						query: {
-							babelrc: false,
-							presets: ['es2015', 'react', 'stage-0'],
-						},
-					},
-				],
-			},
 		});
 	}
 
