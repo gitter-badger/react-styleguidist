@@ -103,7 +103,7 @@ module.exports = function(config, env) {
 		module: {
 			loaders: [
 				{
-					test: /\.jsx?$/,
+					test: /\.js$/,
 					include: sourceDir,
 					loader: 'babel',
 					query: {
